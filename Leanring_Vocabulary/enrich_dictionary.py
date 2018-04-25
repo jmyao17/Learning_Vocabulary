@@ -27,6 +27,21 @@ def score(NSucc,NFail):
     sco=NSucc*100/float(Total_Test)
     print(f"In the test, you tried {Total_Test} times, and your score is {sco}")
 
+
+# check if the word already exists
+def check_word(df,word):
+    Icheck=1   # not exist
+    for index,row in df.iterrows():
+        key=row['word']
+        val=row['meaning']
+        if(word.lower() ==key.lower()):
+            Icheck=0         # exist
+            if(len(val)>0):
+                print(f"Warning: The word '{key}' already exists")
+            else:
+                print(f"The word {key} exists, but the meaning is missing!")
+    return Icheck
+
 # load dictionary from the datebase
 def Load_Dict(Filename):
     Dict={}
@@ -81,12 +96,22 @@ Words_List,df=Load_Dict(Filename)
 
 # enrich the dictionary by adding new words 
 Enter_New_Word = input("Do you want to enter a new word into the dictionary?(Y/N)>") 
+
+while (Enter_New_Word != 'Y' and Enter_New_Word !='N'):
+    print("Please enter either 'Y' or 'N'")
+    Enter_New_Word = input("Do you want to enter a new word into the dictionary?(Y/N)>") 
+
 while Enter_New_Word =='Y':
     New_Word=input("Please enter the new word >")
-    Meaning=input("Please enter the meaning of the word >")
-    Words_List[New_Word]=Meaning
-    print(f"A new word {New_Word} with the meaning: {Meaning} is added into the dictionary.")
-    Enter_New_Word=input("Do you want to enter another new word?(Y/N)>")
+    Icheck=check_word(df,New_Word)
+    if(Icheck == 1):
+        Meaning=input("Please enter the meaning of the word >")
+        Words_List[New_Word]=Meaning
+        print(f"A new word {New_Word} with the meaning: {Meaning} is added into the dictionary.")
+        Enter_New_Word=input("Do you want to enter another new word?(Y/N)>")
+    else:
+        Enter_New_Word=input("Do you want to enter another new word?(Y/N)>")
+
 
 # write words into dictionary file 
 print("The newly added words are written back to the dictionary.")
