@@ -110,6 +110,11 @@ while Enter_New_Word =='Y':
         print(f"A new word {New_Word} with the meaning: {Meaning} is added into the dictionary.")
         Enter_New_Word=input("Do you want to enter another new word?(Y/N)>")
     else:
+        print(f"The meaning of '{New_Word}' was given as: {Words_List[New_Word]}")
+        replace=input("Do you want to replace the meaning with a new one? (Y/N)")
+        if replace =='Y':
+            Meaning=input(f"Please enter a new meaning for '{New_Word}' >")
+            Words_List[New_Word]=Meaning
         Enter_New_Word=input("Do you want to enter another new word?(Y/N)>")
 
 
