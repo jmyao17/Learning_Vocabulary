@@ -9,6 +9,8 @@ from sys import argv
 import csv
 import pandas as pd
 import random
+import emoji
+
 
 Num_Words=1
 Words_List={}
@@ -50,6 +52,8 @@ class colors:
         purple='\033[45m'
         cyan='\033[46m'
         lightgrey='\033[47m'
+
+
 
 def Dashline():
     print("---------------------------------------------------------------------------------------------------------")
@@ -162,10 +166,10 @@ def Test(Dict,df):
 
     if reply == ABCD[id_A] or reply == ABCD[id_A].lower():
         NSucc +=1
-        print("Correct!")
+        print('Correct ^_^ ')
     else:
         NFail +=1
-        print(f"Wrong! The correct answer is {ABCD[id_A]}")
+        print(f"Sorry, you are wrong! The correct answer is {ABCD[id_A]}")
 
     return NSucc,NFail
 #print(f"Key_test={Key}, Val_test={Val}")
