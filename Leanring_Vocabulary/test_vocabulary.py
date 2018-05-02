@@ -87,6 +87,14 @@ def Load_Dict(Filename):
     return Dict,df
 
 
+def Check_Tested(Tested_List,word):
+    iTested = 0
+    for key,val in Tested_List.items():
+        if(key == word):
+            iTested=1
+            break
+    return iTested 
+
 def Get_Key_Val(Words_List,idx):
     idx_word=0
     for key,val in Words_List.items():
@@ -106,12 +114,21 @@ def Option(label,key):
 
 # Test program
 
-def Test(Dict,df):
+def Test(Dict,df,Tested_List):
     Num_Words=len(Dict)
     NSucc=0
     NFail=0
     # get the indices for the words 
     id_test=random.randint(0,Num_Words-1)
+    Key,Val=Get_Key_Val(Dict,id_test)
+    iTested=Check_Tested(Tested_List,Key)
+    # check if the word has already been tested (in the Tested_List)
+    while iTested == 1:
+        id_test=random.randint(0,Num_Words-1)
+        Key,Val=Get_Key_Val(Dict,id_test)
+        iTested=Check_Tested(Tested_List,Key)
+
+
     id_1=random.randint(0,Num_Words-1)
     id_2=random.randint(0,Num_Words-1)
     id_3=random.randint(0,Num_Words-1)
@@ -124,9 +141,7 @@ def Test(Dict,df):
     while id_3 == id_test or id_3 == id_1 or id_3 == id_2:
         id_3=random.randint(0,Num_Words-1)
 
-    
-    
-    Key,Val=Get_Key_Val(Dict,id_test)
+    Tested_List[Key]=Val
     Key1,Val1=Get_Key_Val(Dict,id_1)
     Key2,Val2=Get_Key_Val(Dict,id_2)
     Key3,Val3=Get_Key_Val(Dict,id_3)
@@ -178,24 +193,26 @@ def Main():
     # initialization
     Num_Succ=0
     Num_Fail=0
+    Tested_List={}
     # load dictionary
     script,Filename = argv
     print(f"Load dictionary from {Filename}")
     Dict,df=Load_Dict(Filename)
     Num_Test = 0 
     New_Test='Y'
-    while New_Test == 'Y' and Num_Test <10:
+    while New_Test == 'Y' and Num_Test <20:
         Starline_NL()
         # start to test
         NSucc = 0
         NFail = 0
 
-        NSucc,NFail=Test(Dict,df)
+        NSucc,NFail=Test(Dict,df,Tested_List)
         Num_Test += 1
         Num_Succ +=NSucc
         Num_Fail +=NFail
-        if(Num_Test == 10):
-            New_Test = input("You have tried 10 tests. Do you want to continue the test? (Y/N)")
+        if(Num_Test == 20):
+#            print(f"You have tested words:{Tested_List}\n")
+            New_Test = input("You have tried 20 tests. Do you want to continue the test? (Y/N)")
             if(New_Test == 'Y'):
                 Num_Test = 0
             else:
