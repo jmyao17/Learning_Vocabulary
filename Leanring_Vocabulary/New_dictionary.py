@@ -55,12 +55,12 @@ def Review_Dict(start,end,df):
             print("You reach the last word in the dictionary!")
             break
         More=input("Do you want to see more word? (Y/N)>")
-        if More == 'N':
+        if More == 'N' or More == 'n':
             break
-        elif More == 'Y':
+        elif More == 'Y' or More == 'y':
             print("Ok!")
         else:
-            print("You should enter either Y or N.")
+            print("You should enter either Y/y or N/n.")
 
 
 # load new dictionary
@@ -70,7 +70,7 @@ Words_List,df=Load_Dict(Filename)
 
 # enrich the dictionary by adding new words 
 Enter_New_Word = input("Do you want to enter a new word into the dictionary?(Y/N)>") 
-while Enter_New_Word =='Y':
+while Enter_New_Word =='Y' or Enter_New_Word =='y':
     New_Word=input("Please enter the new word >")
     Meaning=input("Please enter the meaning of the word >")
     Words_List[New_Word]=Meaning
@@ -86,7 +86,7 @@ print(f"Congratulation! You have a new dictionary with {Num_Words} words totally
 Starline_NL()
 
 Review=input("Do you want to review all the words in your dictionary ? (Y/N)>")
-if Review == 'Y' and Num_Words >=1:
+if (Review == 'Y' or Review == 'y') and Num_Words >=1:
     Review_Dict(0,Num_Words-1,df)
 else:
     print("Good! I believe you made a smart choice!")

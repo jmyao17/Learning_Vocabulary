@@ -9,7 +9,6 @@ from sys import argv
 import csv
 import pandas as pd
 import random
-import emoji
 
 
 Num_Words=1
@@ -200,7 +199,7 @@ def Main():
     Dict,df=Load_Dict(Filename)
     Num_Test = 0 
     New_Test='Y'
-    while New_Test == 'Y' and Num_Test <20:
+    while (New_Test == 'Y' or New_Test == 'y') and Num_Test <20:
         Starline_NL()
         # start to test
         NSucc = 0
@@ -213,7 +212,7 @@ def Main():
         if(Num_Test == 20):
 #            print(f"You have tested words:{Tested_List}\n")
             New_Test = input("You have tried 20 tests. Do you want to continue the test? (Y/N)")
-            if(New_Test == 'Y'):
+            if(New_Test == 'Y' or New_Test == 'y'):
                 Num_Test = 0
             else:
                 print(f"# of correct answers:{Num_Succ}; # of wrong answers: {Num_Fail}.")
